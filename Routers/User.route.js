@@ -18,7 +18,7 @@ userRouter.post("/signup", async (req, res) => {
         // Store hash in your password DB.
         const userDetails = new UserModel({ email, password: hash, username });
         await userDetails.save();
-        res.send({ response: "user registerd successfully" });
+        res.send({ email, username,password });
       });
     }
   } catch (error) {
@@ -27,10 +27,11 @@ userRouter.post("/signup", async (req, res) => {
 });
 
 userRouter.post("/login", async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password } = req.body;
   const check_exist = await UserModel.find({ email });
   console.log(check_exist);
-  if (check_exist.length > 0) {
+if (check_exist.length > 0) {
+
     try {
       //compare user password with hased password
       const hased_password = check_exist[0].password;
@@ -39,7 +40,7 @@ userRouter.post("/login", async (req, res) => {
         if (result) {
           //genrate a token using jwt package and send back to user
           var token = jwt.sign({ userID: check_exist[0]._id }, "secret");
-          res.send({ token: token ,username});
+          res.send({ token: token,username:check_exist.username });
         } else {
           res.send({ response: "please enter valid details" });
         }
