@@ -18,7 +18,7 @@ userRouter.post("/signup", async (req, res) => {
         // Store hash in your password DB.
         const userDetails = new UserModel({ email, password: hash, username });
         await userDetails.save();
-        res.send({ email, username,password });
+        res.send({response: "Registered successfully" });
       });
     }
   } catch (error) {
