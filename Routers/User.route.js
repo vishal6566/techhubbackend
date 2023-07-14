@@ -18,7 +18,7 @@ userRouter.post("/signup", async (req, res) => {
         // Store hash in your password DB.
         const userDetails = new UserModel({ email, password: hash, username });
         await userDetails.save();
-        res.send({response: "Registered successfully" });
+        res.status(400).send({response: "Registered successfully" });
       });
     }
   } catch (error) {
@@ -42,7 +42,7 @@ if (check_exist.length > 0) {
           var token = jwt.sign({ userID: check_exist[0]._id }, "secret");
           res.send({ token: token,username:check_exist.username });
         } else {
-          res.send({ response: "please enter valid details" });
+          res.status(400).send({ response: "please enter valid details" });
         }
       });
     } catch (error) {
