@@ -18,7 +18,7 @@ userRouter.post("/signup", async (req, res) => {
         // Store hash in your password DB.
         const userDetails = new UserModel({ email, password: hash, username });
         await userDetails.save();
-        res.status(400).send({response: "Registered successfully" });
+        res.send({response: "Registered successfully" });
       });
     }
   } catch (error) {
@@ -50,7 +50,7 @@ if (check_exist.length > 0) {
       res.send("something went wrong please try after sometime");
     }
   } else {
-    res.status(401).send({ response: "please signup first" });
+    res.status(400).send({ response: "please signup first" });
   }
 });
 
