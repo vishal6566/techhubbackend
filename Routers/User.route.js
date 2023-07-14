@@ -11,9 +11,9 @@ userRouter.post("/signup", async (req, res) => {
   const check_exist = await UserModel.find({ email });
   try {
     if (check_exist.length > 0) {
-      res.send({ response: "user already registerd please login" });
+      res.status(400).send({ response: "user already registered please login" });
     } else {
-      //we required bcryt package for hasing password
+      //we required bcryt package for hashing a password
       bcrypt.hash(password, 4, async function (err, hash) {
         // Store hash in your password DB.
         const userDetails = new UserModel({ email, password: hash, username });
