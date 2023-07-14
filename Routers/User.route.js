@@ -11,7 +11,7 @@ userRouter.post("/signup", async (req, res) => {
   const check_exist = await UserModel.find({ email });
   try {
     if (check_exist.length > 0) {
-      res.status(400).send({ response: "user already registered please login" });
+      res.status(400).send({ response: "user already registered please login",status:400 });
     } else {
       //we required bcryt package for hashing a password
       bcrypt.hash(password, 4, async function (err, hash) {
@@ -42,7 +42,7 @@ if (check_exist.length > 0) {
           var token = jwt.sign({ userID: check_exist[0]._id }, "secret");
           res.send({ token: token,username:check_exist.username });
         } else {
-          res.status(400).send({ response: "please enter valid details" });
+          res.status(400).send({ response: "please enter valid details",status:400  });
         }
       });
     } catch (error) {
