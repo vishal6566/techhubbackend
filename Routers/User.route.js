@@ -50,7 +50,7 @@ if (check_exist.length > 0) {
       res.send("something went wrong please try after sometime");
     }
   } else {
-    res.status(400).send({ response: "please signup first" });
+    res.status(400).send({ response: "please signup first",status:400  });
   }
 });
 
